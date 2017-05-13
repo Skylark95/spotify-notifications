@@ -9,23 +9,39 @@ var spotifyNotifications = {
 
   observe() {
     let observerConfig = { characterData: true, subtree: true };
-
-    let nowPlaying = document.querySelector('.now-playing');
-    let name = nowPlaying.querySelector('.track-info__name');
-    let artists = nowPlaying.querySelector('.track-info__artists');
-    let image = nowPlaying.querySelector('.cover-art-image-loaded');
-
-    let observer = new MutationObserver(() => {
-      let interval = setInterval(() => {
-        if (image) {
-          clearInterval(interval);
-          let imageSrc = image.style.backgroundImage.slice(5, -2);
-          this.notify(name.textContent, artists.textContent, imageSrc);
-        }
-      }, 50);
+    let observer = this.mutationObserver();
+    this.querySelector('.now-playing').then(nowPlaying => {
+      observer.observe(nowPlaying, observerConfig);
     });
-    
-    observer.observe(nowPlaying, observerConfig);
+  },
+
+  mutationObserver() {
+    return new MutationObserver(() => {
+      Promise.all([
+        this.querySelector('.now-playing .track-info__name'),
+        this.querySelector('.now-playing .track-info__artists'),
+        this.querySelector('.now-playing .cover-art-image-loaded')
+      ]).then(elements => {
+        let name = elements[0].textContent,
+            artists = elements[1].textContent,
+            image = elements[2].style.backgroundImage.slice(5, -2);
+        this.notify(name, artists, image);
+      });
+    });
+  },
+
+  querySelector(selector) {
+    return new Promise(resolve => {
+      let value;
+      setTimeout(function query() {
+        value = document.querySelector(selector);
+        if (!value) {
+          setTimeout(query, 200);
+        } else {
+          resolve(value);
+        }
+      }, 200);
+    });
   },
 
   notify(name, artists, image) {

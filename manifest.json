@@ -17,7 +17,8 @@
       ],
       "js": [
         "src/inject/spotify-notifications.js"
-      ]
+      ],
+      "run_at": "document_end"
     }
   ]
 }
