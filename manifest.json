@@ -1,0 +1,24 @@
+{
+  "name": "Notifications for Spotify",
+  "version": "0.1.0",
+  "manifest_version": 2,
+  "description": "Add notifications to https://open.spotify.com/",
+  "homepage_url": "https://gitlab.com/Skylark95/spotify-notifications",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "default_locale": "en",
+  "permissions": [ ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://open.spotify.com/*"
+      ],
+      "js": [
+        "src/inject/spotify-notifications.js"
+      ]
+    }
+  ]
+}

@@ -24,7 +24,7 @@ var spotifyNotifications = {
         }
       }, 50);
     });
-
+    
     observer.observe(nowPlaying, observerConfig);
   },
 
