@@ -1,5 +1,6 @@
 var spotifyNotifications = {
   run() {
+    console.log('%c Notifications for Spotify ' + '%c https://gitlab.com/Skylark95/spotify-notifications', 'background: #1db954; color: #fff; font-weight: bold', '');
     Notification.requestPermission().then((result) => {
       if (result === "granted") {
         this.observe();
