@@ -1,3 +1,9 @@
+/**
+ * Notifcations for Spotify
+ * https://gitlab.com/Skylark95/spotify-notifications
+ *
+ * 2017 Skylark95
+ */
 var spotifyNotifications = {
   run() {
     console.log('%c Notifications for Spotify ' + '%c https://gitlab.com/Skylark95/spotify-notifications', 'background: #1db954; color: #fff; font-weight: bold', '');
