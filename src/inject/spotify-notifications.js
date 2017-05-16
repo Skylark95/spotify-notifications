@@ -18,12 +18,19 @@ var spotifyNotifications = {
   },
 
   querySelector(selector) {
-    return new Promise(resolve => {
+    let tries = 0;
+    let limit = 150; // thirty seconds
+    return new Promise((resolve, reject) => {
       let value;
       setTimeout(function query() {
         value = document.querySelector(selector);
         if (!value) {
-          setTimeout(query, 200);
+          if (tries <= limit) {
+            tries++;
+            setTimeout(query, 200);
+          } else {
+            reject("Timeout waiting for selector: " + selector);
+          }
         } else {
           resolve(value);
         }
@@ -41,6 +48,8 @@ var spotifyNotifications = {
           artists = elements[1].textContent,
           image = elements[2].style.backgroundImage.slice(5, -2);
       this.doNotify(name, artists, image);
+    }).catch(error => {
+      console.log(error);
     });
   },
 
