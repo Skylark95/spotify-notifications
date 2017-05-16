@@ -20,6 +20,8 @@ var spotifyNotifications = {
     let observerConfig = { characterData: true, subtree: true };
     this.querySelector('.now-playing').then(nowPlaying => {
       observer.observe(nowPlaying, observerConfig);
+    }).catch(error => {
+      console.error(error);
     });
   },
 
@@ -55,7 +57,7 @@ var spotifyNotifications = {
           image = elements[2].style.backgroundImage.slice(5, -2);
       this.doNotify(name, artists, image);
     }).catch(error => {
-      console.log(error);
+      console.error(error);
     });
   },
 
