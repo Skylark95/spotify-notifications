@@ -1,4 +1,4 @@
-# Notifcations For Spotify
+# Notifications For Spotify
 Add notifications to https://open.spotify.com/
 
 The browser tab for [open.spotify.com] must remain open for notifications to appear.
@@ -10,7 +10,7 @@ TODO
 
 ## Features
 * Show web notification with song title, artist, and album art
-* Notifcation is shown when [open.spotify.com] is opened and when song changes
+* Notification is shown when [open.spotify.com] is opened and when song changes
 
 ## License
 [GNU GPLv3](LICENSE)
