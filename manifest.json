@@ -2,6 +2,7 @@
   "name": "Notifications for Spotify",
   "version": "0.1.0",
   "manifest_version": 2,
+  "minimum_chrome_version": "49",
   "description": "Add notifications to https://open.spotify.com/",
   "homepage_url": "https://gitlab.com/Skylark95/spotify-notifications",
   "icons": {
