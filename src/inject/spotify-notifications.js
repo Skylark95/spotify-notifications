@@ -1,8 +1,9 @@
 /**
  * Notifcations for Spotify
- * https://gitlab.com/Skylark95/spotify-notifications
+ * https://github.com/Skylark95/spotify-notifications
  *
  * 2017 Skylark95
+ * GNU General Public License v3.0
  */
 var spotifyNotifications = {
   run() {
