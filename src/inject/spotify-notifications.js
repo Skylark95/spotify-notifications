@@ -13,7 +13,6 @@ var spotifyNotifications = {
     console.log('%c Notifications for Spotify ' + '%c https://github.com/Skylark95/spotify-notifications', 'background: #1db954; color: #fff; font-weight: bold', '');
     Notification.requestPermission().then((result) => {
       if (result === "granted") {
-        this.findCoverArt();
         this.findTrackInfo().then(trackInfo => {
           let nameAndArtist = this.getNameAndArtist(trackInfo);
           this.findCoverArtImage().then(image => {
