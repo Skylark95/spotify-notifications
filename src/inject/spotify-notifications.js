@@ -14,14 +14,18 @@ var spotifyNotifications = {
     Notification.requestPermission().then((result) => {
       if (result === "granted") {
         this.findTrackInfo().then(trackInfo => {
-          let nameAndArtist = this.getNameAndArtist(trackInfo);
-          this.findCoverArtImage().then(image => {
-            this.showNotification(Object.assign(nameAndArtist, image));
-          });
           this.notificationObserver = this.createNotificationObserver(trackInfo);
           this.notificationObserver.observe(trackInfo, {characterData: true, subtree: true});
+          this.buildAndShowNotification(trackInfo);
         });
       }
+    });
+  },
+
+  buildAndShowNotification(trackInfo) {
+    let nameAndArtist = this.getNameAndArtist(trackInfo);
+    this.findCoverArtImage().then(image => {
+      this.showNotification(Object.assign(nameAndArtist, image));
     });
   },
 
@@ -32,10 +36,7 @@ var spotifyNotifications = {
 
   createNotificationObserver(trackInfo) {
     return new MutationObserver(records => {
-      let nameAndArtist = this.getNameAndArtist(trackInfo);
-      this.findCoverArtImage().then(image => {
-        this.showNotification(Object.assign(nameAndArtist, image));
-      });
+      this.buildAndShowNotification(trackInfo);
     });
   },
 
