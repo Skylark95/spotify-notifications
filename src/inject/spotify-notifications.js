@@ -62,7 +62,7 @@ var spotifyNotifications = {
       let body = document.querySelector('body');
       observer.observe(body, {childList: true, subtree: true});
 
-      let node = document.querySelector('.track-info');
+      let node = body.querySelector('.track-info');
       if (node) {
         observer.disconnect();
         resolve(node);
