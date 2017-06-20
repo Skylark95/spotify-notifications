@@ -6,12 +6,13 @@
 	#mainPopup {
 		padding: 10px;
 		height: 100%;
-		width: 125px;
+		width: 150px;
 		font-family: Helvetica, Ubuntu, Arial, sans-serif;
 	}
 	.cover-art-image {
 		margin-left: auto;
 		margin-right: auto;
+		margin-bottom: 5px;
 		width: 64px;
 		height: 64px;
 	}
@@ -29,13 +30,14 @@
     line-height: 20px;
 		text-align: center;
 	}
-	h1 {
-		font-size: 2em;
+	.track-info-artists a {
+    color: #1db954;
+
 	}
 </style>
 <div id="mainPopup">
 	<div class="cover-art-image"></div>
-	<div class="track-info-name"></div>
-	<div class="track-info-artists"></div>
+	<div class="track-info-name">Cannot find Spotify tab!</div>
+	<div class="track-info-artists"><a href="https://play.spotify.com/" target="_blank">Open Spotify</a></div>
 </div>
 <script src="browser-action.js"></script>
