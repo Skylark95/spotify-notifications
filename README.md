@@ -1,6 +1,8 @@
 # Notifications For Spotify
 Add notifications to https://open.spotify.com/
 
+As of version `v0.3.0` a browser action icon will also show the currently playing song when clicked.
+
 The browser tab for [open.spotify.com] must remain open for notifications to appear.
 
 ![](screenshots/notification.png)
@@ -12,6 +14,8 @@ The browser tab for [open.spotify.com] must remain open for notifications to app
 ## Features
 * Show web notification with song title, artist, and album art
 * Notification is shown when [open.spotify.com] is opened and when song changes
+* Browser action icon will show currently playing song
+* Clicking anywhere in the browser action popup window will focus the Spotify tab
 
 ## License
 [GNU GPLv3](LICENSE)
