@@ -1,6 +1,6 @@
 {
   "name": "Notifications for Spotify",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "manifest_version": 2,
   "minimum_chrome_version": "49",
   "description": "Add notifications to https://open.spotify.com/",
@@ -10,7 +10,9 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": [ ],
+  "permissions": [
+    "storage"
+  ],
   "content_scripts": [
     {
       "matches": [
@@ -21,5 +23,16 @@
       ],
       "run_at": "document_end"
     }
-  ]
+  ],
+  "background": {
+    "scripts": [
+      "src/bg/background.js"
+    ],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_icon": "icons/icon19.png",
+    "default_title": "Notifications for Spotify",
+    "default_popup": "src/browser-action/browser-action.html"
+  }
 }

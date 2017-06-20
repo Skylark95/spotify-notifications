@@ -8,6 +8,7 @@
 var spotifyNotifications = {
 
   notificationObserver: null,
+  notificationData: null,
 
   run() {
     console.log('%c Notifications for Spotify ' + '%c https://github.com/Skylark95/spotify-notifications', 'background: #1db954; color: #fff; font-weight: bold', '');
@@ -20,6 +21,16 @@ var spotifyNotifications = {
         });
       }
     });
+    this.installMessageListener();
+  },
+
+  installMessageListener() {
+    chrome.runtime.sendMessage({src: "spotifyNotifications.run"});
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+      if (request.src === "spotifyNotifications.browserAction") {
+        sendResponse({data: this.notificationData});
+      }
+    });
   },
 
   buildAndShowNotification(trackInfo) {
@@ -30,6 +41,7 @@ var spotifyNotifications = {
   },
 
   showNotification(data) {
+    this.notificationData = data;
     let notification = new Notification(data.name, {body: data.artists, icon: data.image});
     setTimeout(notification.close.bind(notification), 8000);
   },
