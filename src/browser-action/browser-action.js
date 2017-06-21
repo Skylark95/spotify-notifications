@@ -3,8 +3,8 @@ chrome.storage.local.get('spotifyNotifications.tab.id', items => {
   chrome.tabs.sendMessage(tabId, {src: "spotifyNotifications.browserAction"}, response => {
     if (response.data) {
       document.querySelector('.cover-art-image').style.backgroundImage = `url('${response.data.image}')`;
-      document.querySelector('.track-info-name').innerHTML = response.data.name;
-      document.querySelector('.track-info-artists').innerHTML = response.data.artists;
+      document.querySelector('.track-info-name').textContent = response.data.name;
+      document.querySelector('.track-info-artists').textContent = response.data.artists;
     }
  });
  document.querySelector('body').addEventListener('click', () => {
