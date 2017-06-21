@@ -18,8 +18,13 @@ The browser tab for [open.spotify.com] must remain open for notifications to app
 * Clicking anywhere in the browser action popup window will focus the Spotify tab
 
 ## Recent Changes
-* __v0.3.0__: Implement browser action to show currently playing song
-* __v0.2.0__: Improve Performance: Replace recursive setTimeout call with MutationObserver
+* __v0.3.1__:
+  * __Bugfix:__ Fix cover art scaling in browser action popup
+  * __Security:__ Replace `innerHTML` calls with `textContent`
+* __v0.3.0__:
+  * __Feature:__ Implement browser action to show currently playing song
+* __v0.2.0__:
+  * __Performance:__ Replace recursive `setTimeout` call with `MutationObserver`
 
 ## License
 [GNU GPLv3](LICENSE)
