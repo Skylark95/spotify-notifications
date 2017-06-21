@@ -8,8 +8,8 @@ The browser tab for [open.spotify.com] must remain open for notifications to app
 ![](screenshots/notification.png)
 
 ## Download
-* [Chrome Web Store](https://chrome.google.com/webstore/detail/notifications-for-spotify/filocihllcicedfecomcdlilalmcfohi?hl=en-US&gl=US) (v0.3.0)
-* [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/notifications-for-spotify/) (v0.2.0)
+* [Chrome Web Store](https://chrome.google.com/webstore/detail/notifications-for-spotify/filocihllcicedfecomcdlilalmcfohi?hl=en-US&gl=US) (v0.3.1)
+* [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/notifications-for-spotify/) (v0.3.1 - Pending Review)
 
 ## Features
 * Show web notification with song title, artist, and album art
