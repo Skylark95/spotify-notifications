@@ -28,9 +28,35 @@ var spotifyNotifications = {
     chrome.runtime.sendMessage({src: "spotifyNotifications.run"});
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       if (request.src === "spotifyNotifications.browserAction") {
-        sendResponse({data: this.notificationData});
+        if (request.action === "spotifyNotifications.notificationData") {
+          sendResponse({
+            src: "spotifyNotifications.run",
+            data: this.notificationData
+          });
+        } else if (request.action === "spotifyNotifications.performNameAction") {
+          sendResponse({src: "spotifyNotifications.run"});
+          this.performNameAction();
+        } else if (request.action === "spotifyNotifications.performArtistsAction") {
+          sendResponse({src: "spotifyNotifications.run"});
+          this.performArtistsAction();
+        } else if (request.action === "spotifyNotifications.performCoverArtAction") {
+          sendResponse({src: "spotifyNotifications.run"});
+          this.performCoverArtAction();
+        }
       }
     });
+  },
+
+  performNameAction() {
+    document.querySelector('.track-info .track-info__name a').click();
+  },
+
+  performArtistsAction() {
+    document.querySelector('.track-info .track-info__artists a').click();
+  },
+
+  performCoverArtAction() {
+    document.querySelector('.now-playing__cover-art').click();
   },
 
   buildAndShowNotification(trackInfo) {
