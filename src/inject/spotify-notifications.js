@@ -11,7 +11,7 @@ var spotifyNotifications = {
   notificationData: null,
 
   run() {
-    console.log('%c Notifications for Spotify ' + '%c https://github.com/Skylark95/spotify-notifications', 'background: #1db954; color: #fff; font-weight: bold', '');
+    console.log('%c Notifications for Spotify ' + '%c https://github.com/Skylark95/spotify-notifications', 'background: #15843c; color: #fff; font-size: 110%;', '');
     Notification.requestPermission().then((result) => {
       if (result === "granted") {
         this.findTrackInfo().then(trackInfo => {
