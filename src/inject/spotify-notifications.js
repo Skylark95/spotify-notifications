@@ -11,7 +11,7 @@ var spotifyNotifications = {
   notificationData: null,
 
   run() {
-    console.log('%c Notifications for Spotify ' + '%c https://github.com/Skylark95/spotify-notifications', 'background: #1db954; color: #fff; font-weight: bold', '');
+    console.log('%c Notifications for Spotify ' + '%c https://github.com/Skylark95/spotify-notifications', 'background: #15843c; color: #fff; font-size: 110%;', '');
     Notification.requestPermission().then((result) => {
       if (result === "granted") {
         this.findTrackInfo().then(trackInfo => {
@@ -28,9 +28,35 @@ var spotifyNotifications = {
     chrome.runtime.sendMessage({src: "spotifyNotifications.run"});
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       if (request.src === "spotifyNotifications.browserAction") {
-        sendResponse({data: this.notificationData});
+        if (request.action === "spotifyNotifications.notificationData") {
+          sendResponse({
+            src: "spotifyNotifications.run",
+            data: this.notificationData
+          });
+        } else if (request.action === "spotifyNotifications.performNameAction") {
+          sendResponse({src: "spotifyNotifications.run"});
+          this.performNameAction();
+        } else if (request.action === "spotifyNotifications.performArtistsAction") {
+          sendResponse({src: "spotifyNotifications.run"});
+          this.performArtistsAction();
+        } else if (request.action === "spotifyNotifications.performCoverArtAction") {
+          sendResponse({src: "spotifyNotifications.run"});
+          this.performCoverArtAction();
+        }
       }
     });
+  },
+
+  performNameAction() {
+    document.querySelector('.track-info .track-info__name a').click();
+  },
+
+  performArtistsAction() {
+    document.querySelector('.track-info .track-info__artists a').click();
+  },
+
+  performCoverArtAction() {
+    document.querySelector('.now-playing__cover-art').click();
   },
 
   buildAndShowNotification(trackInfo) {
