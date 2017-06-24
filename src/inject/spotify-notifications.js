@@ -33,15 +33,13 @@ var spotifyNotifications = {
             src: "spotifyNotifications.run",
             data: this.notificationData
           });
-        } else if (request.action === "spotifyNotifications.performNameAction") {
-          sendResponse({src: "spotifyNotifications.run"});
-          this.performNameAction();
-        } else if (request.action === "spotifyNotifications.performArtistsAction") {
-          sendResponse({src: "spotifyNotifications.run"});
-          this.performArtistsAction();
-        } else if (request.action === "spotifyNotifications.performCoverArtAction") {
-          sendResponse({src: "spotifyNotifications.run"});
-          this.performCoverArtAction();
+        } else if (request.action) {
+          let action = request.action.replace("spotifyNotifications.", "");
+          let fn = this[action];
+          if (fn) {
+            sendResponse({src: "spotifyNotifications.run"});
+            fn();
+          }
         }
       }
     });
@@ -57,6 +55,22 @@ var spotifyNotifications = {
 
   performCoverArtAction() {
     document.querySelector('.now-playing__cover-art').click();
+  },
+
+  performPlayAction() {
+    document.querySelector("button.control-button[title='Play']").click();
+  },
+
+  performPauseAction() {
+    document.querySelector("button.control-button[title='Pause']").click();
+  },
+
+  performNextAction() {
+    document.querySelector("button.control-button[title='Next']").click();
+  },
+
+  performPreviousAction() {
+    document.querySelector("button.control-button[title='Previous']").click();
   },
 
   buildAndShowNotification(trackInfo) {
