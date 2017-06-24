@@ -42,7 +42,12 @@ chrome.storage.local.get('spotifyNotifications.tab.id', items => {
           previousElement = document.querySelector('.track-control-previous'),
           nextElement = document.querySelector('.track-control-next');
 
-      playElement.style.display = 'none';
+      if (response.data.isPlaying) {
+        playElement.style.display = 'none';
+      } else {
+        pauseElement.style.display = 'none';
+      }
+      
       playElement.addEventListener('click', () => {
         playElement.style.display = 'none';
         pauseElement.style.display = 'inline';

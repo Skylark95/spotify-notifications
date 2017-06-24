@@ -61,7 +61,7 @@ var spotifyNotifications = {
         if (request.action === "spotifyNotifications.notificationData") {
           sendResponse({
             src: "spotifyNotifications.run",
-            data: this.notificationData
+            data: Object.assign({isPlaying: this.isPlaying()}, this.notificationData)
           });
         } else if (request.action) {
           let action = request.action.replace("spotifyNotifications.", "");
@@ -73,6 +73,10 @@ var spotifyNotifications = {
         }
       }
     });
+  },
+
+  isPlaying() {
+    return !!document.querySelector("button.control-button[title='Pause']");
   },
 
   buildAndShowNotification(trackInfo) {
