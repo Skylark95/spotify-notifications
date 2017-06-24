@@ -10,6 +10,36 @@ var spotifyNotifications = {
   notificationObserver: null,
   notificationData: null,
 
+  actions: {
+    performNameAction() {
+      document.querySelector('.track-info .track-info__name a').click();
+    },
+
+    performArtistsAction() {
+      document.querySelector('.track-info .track-info__artists a').click();
+    },
+
+    performCoverArtAction() {
+      document.querySelector('.now-playing__cover-art').click();
+    },
+
+    performPlayAction() {
+      document.querySelector("button.control-button[title='Play']").click();
+    },
+
+    performPauseAction() {
+      document.querySelector("button.control-button[title='Pause']").click();
+    },
+
+    performNextAction() {
+      document.querySelector("button.control-button[title='Next']").click();
+    },
+
+    performPreviousAction() {
+      document.querySelector("button.control-button[title='Previous']").click();
+    }
+  },
+
   run() {
     console.log('%c Notifications for Spotify ' + '%c https://github.com/Skylark95/spotify-notifications', 'background: #15843c; color: #fff; font-size: 110%;', '');
     Notification.requestPermission().then((result) => {
@@ -35,7 +65,7 @@ var spotifyNotifications = {
           });
         } else if (request.action) {
           let action = request.action.replace("spotifyNotifications.", "");
-          let fn = this[action];
+          let fn = this.actions[action];
           if (fn) {
             sendResponse({src: "spotifyNotifications.run"});
             fn();
@@ -43,34 +73,6 @@ var spotifyNotifications = {
         }
       }
     });
-  },
-
-  performNameAction() {
-    document.querySelector('.track-info .track-info__name a').click();
-  },
-
-  performArtistsAction() {
-    document.querySelector('.track-info .track-info__artists a').click();
-  },
-
-  performCoverArtAction() {
-    document.querySelector('.now-playing__cover-art').click();
-  },
-
-  performPlayAction() {
-    document.querySelector("button.control-button[title='Play']").click();
-  },
-
-  performPauseAction() {
-    document.querySelector("button.control-button[title='Pause']").click();
-  },
-
-  performNextAction() {
-    document.querySelector("button.control-button[title='Next']").click();
-  },
-
-  performPreviousAction() {
-    document.querySelector("button.control-button[title='Previous']").click();
   },
 
   buildAndShowNotification(trackInfo) {
