@@ -94,6 +94,10 @@ var spotifyNotifications = {
     this.notificationData = data;
     this.notification = new Notification(data.name, {body: data.artists, icon: data.image});
     setTimeout(this.notification.close.bind(this.notification), 8000);
+    chrome.runtime.sendMessage({
+      src: "spotifyNotifications.showNotification",
+      data: this.notificationData
+    });
   },
 
   createNotificationObserver(trackInfo) {

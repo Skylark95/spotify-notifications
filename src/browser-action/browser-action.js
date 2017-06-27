@@ -27,13 +27,27 @@ var snBrowserAction = {
     chrome.tabs.update(snBrowserAction.tabId, {active: true});
   },
 
+  installMessageListener() {
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+      if (request.src === "spotifyNotifications.showNotification" && request.data) {
+        snBrowserAction.updateTrackInfo(request.data);
+        sendResponse({src: "spotifyNotifications.browserAction"});
+      }
+    });
+  },
+
   updateData(response) {
     if (response.data) {
-      snBrowserAction.updateCoverArt(response.data.image);
-      snBrowserAction.updateName(response.data.name);
-      snBrowserAction.updateArtists(response.data.artists);
+      snBrowserAction.updateTrackInfo(response.data);
       snBrowserAction.updateControls(response.data.isPlaying);
+      snBrowserAction.installMessageListener();
     }
+  },
+
+  updateTrackInfo(data) {
+    snBrowserAction.updateCoverArt(data.image);
+    snBrowserAction.updateName(data.name);
+    snBrowserAction.updateArtists(data.artists);
   },
 
   updateControls(isPlaying) {
