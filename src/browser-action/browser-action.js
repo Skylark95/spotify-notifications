@@ -1,94 +1,147 @@
-chrome.storage.local.get('spotifyNotifications.tab.id', items => {
-  let tabId = items['spotifyNotifications.tab.id'];
+/**
+ * Notifcations for Spotify
+ * https://github.com/Skylark95/spotify-notifications
+ *
+ * 2017 Skylark95
+ * GNU General Public License v3.0
+ */
+var snBrowserAction = {
 
-  function updateData(response) {
+  tabId: null,
+
+  init() {
+    chrome.storage.local.get('spotifyNotifications.tab.id', items => {
+      snBrowserAction.tabId = items['spotifyNotifications.tab.id'];
+      snBrowserAction.sendMessage({
+        src: "spotifyNotifications.browserAction",
+        action: "spotifyNotifications.notificationData"
+      }, snBrowserAction.updateData);
+    });
+  },
+
+  sendMessage(message, callback) {
+    chrome.tabs.sendMessage(snBrowserAction.tabId, message, callback);
+  },
+
+  focusTab() {
+    chrome.tabs.update(snBrowserAction.tabId, {active: true});
+  },
+
+  updateData(response) {
     if (response.data) {
-      let coverArtElement = document.querySelector('.cover-art-image');
-      coverArtElement.style.backgroundImage = `url('${response.data.image}')`;
-      coverArtElement.classList.add('track-info-action');
-      coverArtElement.addEventListener('click', () => {
-        chrome.tabs.sendMessage(tabId, {
-          src: "spotifyNotifications.browserAction",
-          action: "spotifyNotifications.performCoverArtAction"
-        });
-        chrome.tabs.update(tabId, {active: true});
-      });
-
-      let nameElement = document.querySelector('.track-info-name');
-      nameElement.textContent = response.data.name;
-      nameElement.classList.add('track-info-action');
-      nameElement.addEventListener('click', () => {
-        chrome.tabs.sendMessage(tabId, {
-          src: "spotifyNotifications.browserAction",
-          action: "spotifyNotifications.performNameAction"
-        });
-        chrome.tabs.update(tabId, {active: true});
-      });
-
-      let artistsElement = document.querySelector('.track-info-artists');
-      artistsElement.classList.add('track-info-action');
-      artistsElement.textContent = response.data.artists;
-      artistsElement.addEventListener('click', () => {
-        chrome.tabs.sendMessage(tabId, {
-          src: "spotifyNotifications.browserAction",
-          action: "spotifyNotifications.performArtistsAction"
-        });
-        chrome.tabs.update(tabId, {active: true});
-      });
-
-      document.querySelector('.track-controls').style.display = 'block';
-      let playElement = document.querySelector('.track-control-play'),
-          pauseElement = document.querySelector('.track-control-pause'),
-          previousElement = document.querySelector('.track-control-previous'),
-          nextElement = document.querySelector('.track-control-next');
-
-      if (response.data.isPlaying) {
-        playElement.style.display = 'none';
-      } else {
-        pauseElement.style.display = 'none';
-      }
-
-      playElement.addEventListener('click', () => {
-        playElement.style.display = 'none';
-        pauseElement.style.display = 'inline';
-        chrome.tabs.sendMessage(tabId, {
-          src: "spotifyNotifications.browserAction",
-          action: "spotifyNotifications.performPlayAction"
-        });
-      });
-
-      pauseElement.addEventListener('click', () => {
-        pauseElement.style.display = 'none';
-        playElement.style.display = 'inline';
-        chrome.tabs.sendMessage(tabId, {
-          src: "spotifyNotifications.browserAction",
-          action: "spotifyNotifications.performPauseAction"
-        });
-      });
-
-      previousElement.addEventListener('click', () => {
-        playElement.style.display = 'none';
-        pauseElement.style.display = 'inline';
-        chrome.tabs.sendMessage(tabId, {
-          src: "spotifyNotifications.browserAction",
-          action: "spotifyNotifications.performPreviousAction"
-        });
-      });
-
-      nextElement.addEventListener('click', () => {
-        playElement.style.display = 'none';
-        pauseElement.style.display = 'inline';
-        chrome.tabs.sendMessage(tabId, {
-          src: "spotifyNotifications.browserAction",
-          action: "spotifyNotifications.performNextAction"
-        });
-      });
-
+      snBrowserAction.updateCoverArt(response.data.image);
+      snBrowserAction.updateName(response.data.name);
+      snBrowserAction.updateArtists(response.data.artists);
+      snBrowserAction.updateControls(response.data.isPlaying);
     }
+  },
+
+  updateControls(isPlaying) {
+    let controls = {
+      container: document.querySelector('.track-controls'),
+      play: document.querySelector('.track-control-play'),
+      pause: document.querySelector('.track-control-pause'),
+      previous: document.querySelector('.track-control-previous'),
+      next: document.querySelector('.track-control-next')
+    };
+
+    controls.container.style.display = 'block';
+
+    if (isPlaying) {
+      controls.play.style.display = 'none';
+    } else {
+      controls.pause.style.display = 'none';
+    }
+
+    snBrowserAction.updatePlay(controls);
+    snBrowserAction.updatePause(controls);
+    snBrowserAction.updatePrevious(controls);
+    snBrowserAction.updateNext(controls);
+  },
+
+  updateCoverArt(image) {
+    let coverArtElement = document.querySelector('.cover-art-image');
+    coverArtElement.style.backgroundImage = `url('${image}')`;
+    coverArtElement.classList.add('track-info-action');
+    coverArtElement.addEventListener('click', () => {
+      snBrowserAction.sendMessage({
+        src: "spotifyNotifications.browserAction",
+        action: "spotifyNotifications.performCoverArtAction"
+      });
+      snBrowserAction.focusTab();
+    });
+  },
+
+  updateName(name) {
+    let nameElement = document.querySelector('.track-info-name');
+    nameElement.textContent = name;
+    nameElement.classList.add('track-info-action');
+    nameElement.addEventListener('click', () => {
+      snBrowserAction.sendMessage({
+        src: "spotifyNotifications.browserAction",
+        action: "spotifyNotifications.performNameAction"
+      });
+      snBrowserAction.focusTab();
+    });
+  },
+
+  updateArtists(artists) {
+    let artistsElement = document.querySelector('.track-info-artists');
+    artistsElement.classList.add('track-info-action');
+    artistsElement.textContent = artists;
+    artistsElement.addEventListener('click', () => {
+      snBrowserAction.sendMessage({
+        src: "spotifyNotifications.browserAction",
+        action: "spotifyNotifications.performArtistsAction"
+      });
+      snBrowserAction.focusTab();
+    });
+  },
+
+  updatePlay(controls) {
+    controls.play.addEventListener('click', () => {
+      controls.play.style.display = 'none';
+      controls.pause.style.display = 'inline';
+      snBrowserAction.sendMessage({
+        src: "spotifyNotifications.browserAction",
+        action: "spotifyNotifications.performPlayAction"
+      });
+    });
+  },
+
+  updatePause(controls) {
+    controls.pause.addEventListener('click', () => {
+      controls.pause.style.display = 'none';
+      controls.play.style.display = 'inline';
+      snBrowserAction.sendMessage({
+        src: "spotifyNotifications.browserAction",
+        action: "spotifyNotifications.performPauseAction"
+      });
+    });
+  },
+
+  updatePrevious(controls) {
+    controls.previous.addEventListener('click', () => {
+      controls.play.style.display = 'none';
+      controls.pause.style.display = 'inline';
+      snBrowserAction.sendMessage({
+        src: "spotifyNotifications.browserAction",
+        action: "spotifyNotifications.performPreviousAction"
+      });
+    });
+  },
+
+  updateNext(controls) {
+    controls.next.addEventListener('click', () => {
+      controls.play.style.display = 'none';
+      controls.pause.style.display = 'inline';
+      snBrowserAction.sendMessage({
+        src: "spotifyNotifications.browserAction",
+        action: "spotifyNotifications.performNextAction"
+      });
+    });
   }
 
-  chrome.tabs.sendMessage(tabId, {
-    src: "spotifyNotifications.browserAction",
-    action: "spotifyNotifications.notificationData"
-  }, updateData);
-});
+};
+
+snBrowserAction.init();
