@@ -9,6 +9,7 @@ var spotifyNotifications = {
 
   notificationObserver: null,
   notificationData: null,
+  notification: null,
 
   actions: {
     performNameAction() {
@@ -87,9 +88,12 @@ var spotifyNotifications = {
   },
 
   showNotification(data) {
+    if (this.notification) {
+      this.notification.close();
+    }
     this.notificationData = data;
-    let notification = new Notification(data.name, {body: data.artists, icon: data.image});
-    setTimeout(notification.close.bind(notification), 8000);
+    this.notification = new Notification(data.name, {body: data.artists, icon: data.image});
+    setTimeout(this.notification.close.bind(this.notification), 8000);
   },
 
   createNotificationObserver(trackInfo) {
