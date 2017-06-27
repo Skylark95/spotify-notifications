@@ -47,7 +47,7 @@ chrome.storage.local.get('spotifyNotifications.tab.id', items => {
       } else {
         pauseElement.style.display = 'none';
       }
-      
+
       playElement.addEventListener('click', () => {
         playElement.style.display = 'none';
         pauseElement.style.display = 'inline';
@@ -67,6 +67,8 @@ chrome.storage.local.get('spotifyNotifications.tab.id', items => {
       });
 
       previousElement.addEventListener('click', () => {
+        playElement.style.display = 'none';
+        pauseElement.style.display = 'inline';
         chrome.tabs.sendMessage(tabId, {
           src: "spotifyNotifications.browserAction",
           action: "spotifyNotifications.performPreviousAction"
@@ -74,6 +76,8 @@ chrome.storage.local.get('spotifyNotifications.tab.id', items => {
       });
 
       nextElement.addEventListener('click', () => {
+        playElement.style.display = 'none';
+        pauseElement.style.display = 'inline';
         chrome.tabs.sendMessage(tabId, {
           src: "spotifyNotifications.browserAction",
           action: "spotifyNotifications.performNextAction"
