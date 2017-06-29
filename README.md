@@ -1,7 +1,7 @@
 # Notifications For Spotify
 Add notifications to https://open.spotify.com/
 
-As of version __v0.3.0__ a browser action icon will also show the currently playing song when clicked.
+As of version __v0.4.0__ a browser action icon will also show the currently playing song with track controls when clicked.
 
 The browser tab for [open.spotify.com] must remain open for notifications to appear.
 
@@ -18,6 +18,13 @@ The browser tab for [open.spotify.com] must remain open for notifications to app
 * Clicking anywhere in the browser action popup window will focus the Spotify tab
 
 ## Recent Changes
+* __v0.4.0__:
+  * __Feature:__ Add track controls to browser action
+  * __Feature:__ Add links to browser action to jump to album or artist
+  * __Feature:__ Add browser keyboard shortcut to show browser action (default: `Ctrl+Shift+S`)
+  * __Feature:__ Add browser keyboard shortcut play/pause track from any tab (default: `Ctrl+Shift+Space`)
+  * __Bugfix:__ Don't show multiple notifications if rapidly changing track
+  * __Bugfix:__ Fix browser action doesn't work if notifications are not granted
 * __v0.3.1__:
   * __Bugfix:__ Fix cover art scaling in browser action popup
   * __Security:__ Replace `innerHTML` calls with `textContent`
