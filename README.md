@@ -12,15 +12,15 @@ The browser tab for [open.spotify.com] must remain open for notifications to app
 * [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/notifications-for-spotify/) (v0.3.1)
 
 ## Features
-#### Web Notifications for current song
+### Web Notifications for current song
 * Show web notification with song title, artist, and album art
 * Notification is shown when [open.spotify.com] is opened and when song changes
 
-#### Browser action with song preview and controls
+### Browser action with song preview and controls
 * Browser action icon will show currently playing song with controls to play/pause/change track
 * Clicking links in the browser action popup window will focus the Spotify tab and show the album or artist clicked
 
-#### Keyboard Shortcuts
+### Keyboard Shortcuts
 __Chrome__ keyboard shortcuts are listed _first_ with __Firefox__ in _parentheses_ if different.
 * __Ctrl+Shift+S:__ Show browser action with song preview (__Firefox:__ Alt+Shift+S)
 * __Ctrl+Shift+Space:__ Toggle Play/Pause for current song from anywhere in the browser (__Firefox:__ Ctrl+Shift+Z)
