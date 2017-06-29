@@ -25,7 +25,7 @@ __Chrome__ keyboard shortcuts are listed _first_ with __Firefox__ in _parenthese
 * __Ctrl+Shift+S:__ Show browser action with song preview (__Firefox:__ Alt+Shift+S)
 * __Ctrl+Shift+Space:__ Toggle Play/Pause for current song from anywhere in the browser (__Firefox:__ Ctrl+Shift+Z)
 * __Ctrl+Shift+X:__ Show notification for current song from anywhere in the browser
-* Keyboard shortcuts may be changed on the `chrome://extensions/` page by strolling to the bottom of the page and clicking "Keyboard Shortcuts"
+* Keyboard shortcuts may be changed on the `chrome://extensions/` page by scrolling to the bottom of the page and clicking "Keyboard Shortcuts"
 
 
 ## Recent Changes
