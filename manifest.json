@@ -40,6 +40,12 @@
       "suggested_key": {
         "default": "Ctrl+Shift+S"
       }
+    },
+    "spotify-notifications-play-pause": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Space"
+      },
+      "description": "Toggle Play/Pause track"
     }
   }
 }

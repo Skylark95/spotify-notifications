@@ -32,6 +32,14 @@ var spotifyNotifications = {
       document.querySelector("button.control-button[title='Pause']").click();
     },
 
+    performPlayPauseAction() {
+      if (spotifyNotifications.isPlaying()) {
+        spotifyNotifications.actions.performPauseAction();
+      } else {
+        spotifyNotifications.actions.performPlayAction();
+      }
+    },
+
     performNextAction() {
       document.querySelector("button.control-button[title='Next']").click();
     },
@@ -58,7 +66,7 @@ var spotifyNotifications = {
   installMessageListener() {
     chrome.runtime.sendMessage({src: "spotifyNotifications.run"});
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      if (request.src === "spotifyNotifications.browserAction") {
+      if (request.src === "spotifyNotifications.browserAction" || request.src === "spotifyNotifications.background") {
         if (request.action === "spotifyNotifications.notificationData") {
           sendResponse({
             src: "spotifyNotifications.run",
