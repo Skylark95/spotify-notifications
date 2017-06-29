@@ -3,7 +3,7 @@ Add notifications and controls to [open.spotify.com]
 
 As of version __v0.4.0__ a browser action icon will also show the currently playing song with track controls when clicked.
 
-The browser tab for [open.spotify.com] must remain open for notifications to appear.
+The browser tab for [open.spotify.com] must remain open for notifications to appear and the browser action to function.
 
 ![](screenshots/notification.png)
 
