@@ -47,6 +47,12 @@ var spotifyNotifications = {
 
     performPreviousAction() {
       document.querySelector("button.control-button[title='Previous']").click();
+    },
+
+    performShowNotification() {
+      spotifyNotifications.findTrackInfo().then(trackInfo => {
+        spotifyNotifications.buildAndShowNotification(trackInfo);
+      });
     }
   },
 
@@ -56,7 +62,7 @@ var spotifyNotifications = {
       if (result === "granted") {
         this.hasNotificationPermission = true;
       }
-      this.findTrackInfo().then(trackInfo => {  
+      this.findTrackInfo().then(trackInfo => {
         this.notificationObserver = this.createNotificationObserver(trackInfo);
         this.notificationObserver.observe(trackInfo, {characterData: true, subtree: true});
         this.buildAndShowNotification(trackInfo);

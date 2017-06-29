@@ -32,6 +32,14 @@ var snBackground = {
             action: "spotifyNotifications.performPlayPauseAction"
           });
         });
+      } else if ("spotify-notifications-show-notification" === command) {
+        chrome.storage.local.get('spotifyNotifications.tab.id', items => {
+          let tabId = items['spotifyNotifications.tab.id'];
+          chrome.tabs.sendMessage(tabId, {
+            src: "spotifyNotifications.background",
+            action: "spotifyNotifications.performShowNotification"
+          });
+        });
       }
     });
   }
