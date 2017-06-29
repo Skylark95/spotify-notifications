@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "manifest_version": 2,
   "minimum_chrome_version": "49",
-  "description": "Add notifications to https://open.spotify.com/",
+  "description": "Add notifications and controls to open.spotify.com",
   "homepage_url": "https://github.com/Skylark95/spotify-notifications",
   "icons": {
     "16": "icons/icon16.png",
@@ -34,5 +34,24 @@
     "default_icon": "icons/icon19.png",
     "default_title": "Notifications for Spotify",
     "default_popup": "src/browser-action/browser-action.html"
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S"
+      }
+    },
+    "spotify-notifications-play-pause": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Space"
+      },
+      "description": "Toggle Play/Pause track"
+    },
+    "spotify-notifications-show-notification": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+X"
+      },
+      "description": "Show Notification"
+    }
   }
 }

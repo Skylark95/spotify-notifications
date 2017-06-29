@@ -1,23 +1,42 @@
 # Notifications For Spotify
-Add notifications to https://open.spotify.com/
+Add notifications and controls to [open.spotify.com]
 
-As of version __v0.3.0__ a browser action icon will also show the currently playing song when clicked.
+As of version __v0.4.0__ a browser action icon will also show the currently playing song with track controls when clicked.
 
-The browser tab for [open.spotify.com] must remain open for notifications to appear.
+The browser tab for [open.spotify.com] must remain open for notifications to appear and the browser action to function.
 
 ![](screenshots/notification.png)
 
 ## Download
-* [Chrome Web Store](https://chrome.google.com/webstore/detail/notifications-for-spotify/filocihllcicedfecomcdlilalmcfohi?hl=en-US&gl=US) (v0.3.1)
-* [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/notifications-for-spotify/) (v0.3.1)
+* [Chrome Web Store](https://chrome.google.com/webstore/detail/notifications-for-spotify/filocihllcicedfecomcdlilalmcfohi?hl=en-US&gl=US) (v0.4.0)
+* [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/notifications-for-spotify/) (Pending review: v0.4.0)
 
 ## Features
+### Web Notifications for current song
 * Show web notification with song title, artist, and album art
 * Notification is shown when [open.spotify.com] is opened and when song changes
-* Browser action icon will show currently playing song
-* Clicking anywhere in the browser action popup window will focus the Spotify tab
+
+### Browser action with song preview and controls
+* Browser action icon will show currently playing song with controls to play/pause/change track
+* Clicking links in the browser action popup window will focus the Spotify tab and show the album or artist clicked
+
+### Keyboard Shortcuts
+__Chrome__ keyboard shortcuts are listed _first_ with __Firefox__ in _parentheses_ if different.
+* __Ctrl+Shift+S:__ Show browser action with song preview (__Firefox:__ Alt+Shift+S)
+* __Ctrl+Shift+Space:__ Toggle Play/Pause for current song from anywhere in the browser (__Firefox:__ Ctrl+Shift+Z)
+* __Ctrl+Shift+X:__ Show notification for current song from anywhere in the browser
+* Keyboard shortcuts may be changed on the `chrome://extensions/` page by strolling to the bottom of the page and clicking "Keyboard Shortcuts"
+
 
 ## Recent Changes
+* __v0.4.0__:
+  * __Feature:__ Add track controls to browser action
+  * __Feature:__ Add links to browser action to jump to album or artist
+  * __Feature:__ Add browser keyboard shortcut to show browser action (Chrome default: `Ctrl+Shift+S`)
+  * __Feature:__ Add browser keyboard shortcut play/pause track from any tab (Chrome default: `Ctrl+Shift+Space`)
+  * __Feature:__ Add browser keyboard shortcut show notification from any tab (default: `Ctrl+Shift+X`)
+  * __Bugfix:__ Don't show multiple notifications if rapidly changing track
+  * __Bugfix:__ Fix browser action doesn't work if notifications are not granted
 * __v0.3.1__:
   * __Bugfix:__ Fix cover art scaling in browser action popup
   * __Security:__ Replace `innerHTML` calls with `textContent`

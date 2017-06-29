@@ -9,17 +9,64 @@ var spotifyNotifications = {
 
   notificationObserver: null,
   notificationData: null,
+  notification: null,
+  hasNotificationPermission: false,
+
+  actions: {
+    performNameAction() {
+      document.querySelector('.track-info .track-info__name a').click();
+    },
+
+    performArtistsAction() {
+      document.querySelector('.track-info .track-info__artists a').click();
+    },
+
+    performCoverArtAction() {
+      document.querySelector('.now-playing__cover-art').click();
+    },
+
+    performPlayAction() {
+      document.querySelector("button.control-button[title='Play']").click();
+    },
+
+    performPauseAction() {
+      document.querySelector("button.control-button[title='Pause']").click();
+    },
+
+    performPlayPauseAction() {
+      if (spotifyNotifications.isPlaying()) {
+        spotifyNotifications.actions.performPauseAction();
+      } else {
+        spotifyNotifications.actions.performPlayAction();
+      }
+    },
+
+    performNextAction() {
+      document.querySelector("button.control-button[title='Next']").click();
+    },
+
+    performPreviousAction() {
+      document.querySelector("button.control-button[title='Previous']").click();
+    },
+
+    performShowNotification() {
+      spotifyNotifications.findTrackInfo().then(trackInfo => {
+        spotifyNotifications.buildAndShowNotification(trackInfo);
+      });
+    }
+  },
 
   run() {
     console.log('%c Notifications for Spotify ' + '%c https://github.com/Skylark95/spotify-notifications', 'background: #15843c; color: #fff; font-size: 110%;', '');
     Notification.requestPermission().then((result) => {
       if (result === "granted") {
-        this.findTrackInfo().then(trackInfo => {
-          this.notificationObserver = this.createNotificationObserver(trackInfo);
-          this.notificationObserver.observe(trackInfo, {characterData: true, subtree: true});
-          this.buildAndShowNotification(trackInfo);
-        });
+        this.hasNotificationPermission = true;
       }
+      this.findTrackInfo().then(trackInfo => {
+        this.notificationObserver = this.createNotificationObserver(trackInfo);
+        this.notificationObserver.observe(trackInfo, {characterData: true, subtree: true});
+        this.buildAndShowNotification(trackInfo);
+      });
     });
     this.installMessageListener();
   },
@@ -27,36 +74,26 @@ var spotifyNotifications = {
   installMessageListener() {
     chrome.runtime.sendMessage({src: "spotifyNotifications.run"});
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      if (request.src === "spotifyNotifications.browserAction") {
+      if (request.src === "spotifyNotifications.browserAction" || request.src === "spotifyNotifications.background") {
         if (request.action === "spotifyNotifications.notificationData") {
           sendResponse({
             src: "spotifyNotifications.run",
-            data: this.notificationData
+            data: Object.assign({isPlaying: this.isPlaying()}, this.notificationData)
           });
-        } else if (request.action === "spotifyNotifications.performNameAction") {
-          sendResponse({src: "spotifyNotifications.run"});
-          this.performNameAction();
-        } else if (request.action === "spotifyNotifications.performArtistsAction") {
-          sendResponse({src: "spotifyNotifications.run"});
-          this.performArtistsAction();
-        } else if (request.action === "spotifyNotifications.performCoverArtAction") {
-          sendResponse({src: "spotifyNotifications.run"});
-          this.performCoverArtAction();
+        } else if (request.action) {
+          let action = request.action.replace("spotifyNotifications.", "");
+          let fn = this.actions[action];
+          if (fn) {
+            sendResponse({src: "spotifyNotifications.run"});
+            fn();
+          }
         }
       }
     });
   },
 
-  performNameAction() {
-    document.querySelector('.track-info .track-info__name a').click();
-  },
-
-  performArtistsAction() {
-    document.querySelector('.track-info .track-info__artists a').click();
-  },
-
-  performCoverArtAction() {
-    document.querySelector('.now-playing__cover-art').click();
+  isPlaying() {
+    return !!document.querySelector("button.control-button[title='Pause']");
   },
 
   buildAndShowNotification(trackInfo) {
@@ -68,8 +105,17 @@ var spotifyNotifications = {
 
   showNotification(data) {
     this.notificationData = data;
-    let notification = new Notification(data.name, {body: data.artists, icon: data.image});
-    setTimeout(notification.close.bind(notification), 8000);
+    if (this.notification) {
+      this.notification.close();
+    }
+    if (this.hasNotificationPermission) {
+      this.notification = new Notification(data.name, {body: data.artists, icon: data.image});
+      setTimeout(this.notification.close.bind(this.notification), 8000);
+    }
+    chrome.runtime.sendMessage({
+      src: "spotifyNotifications.showNotification",
+      data: this.notificationData
+    });
   },
 
   createNotificationObserver(trackInfo) {
