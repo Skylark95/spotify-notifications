@@ -34,5 +34,12 @@
     "default_icon": "icons/icon19.png",
     "default_title": "Notifications for Spotify",
     "default_popup": "src/browser-action/browser-action.html"
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S"
+      }
+    }
   }
 }
