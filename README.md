@@ -1,5 +1,5 @@
 # Notifications For Spotify
-Add notifications to https://open.spotify.com/
+Add notifications and controls to [open.spotify.com]
 
 As of version __v0.4.0__ a browser action icon will also show the currently playing song with track controls when clicked.
 
