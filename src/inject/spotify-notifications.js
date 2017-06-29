@@ -10,6 +10,7 @@ var spotifyNotifications = {
   notificationObserver: null,
   notificationData: null,
   notification: null,
+  hasNotificationPermission: false,
 
   actions: {
     performNameAction() {
@@ -53,12 +54,13 @@ var spotifyNotifications = {
     console.log('%c Notifications for Spotify ' + '%c https://github.com/Skylark95/spotify-notifications', 'background: #15843c; color: #fff; font-size: 110%;', '');
     Notification.requestPermission().then((result) => {
       if (result === "granted") {
-        this.findTrackInfo().then(trackInfo => {
-          this.notificationObserver = this.createNotificationObserver(trackInfo);
-          this.notificationObserver.observe(trackInfo, {characterData: true, subtree: true});
-          this.buildAndShowNotification(trackInfo);
-        });
+        this.hasNotificationPermission = true;
       }
+      this.findTrackInfo().then(trackInfo => {  
+        this.notificationObserver = this.createNotificationObserver(trackInfo);
+        this.notificationObserver.observe(trackInfo, {characterData: true, subtree: true});
+        this.buildAndShowNotification(trackInfo);
+      });
     });
     this.installMessageListener();
   },
@@ -96,12 +98,14 @@ var spotifyNotifications = {
   },
 
   showNotification(data) {
+    this.notificationData = data;
     if (this.notification) {
       this.notification.close();
     }
-    this.notificationData = data;
-    this.notification = new Notification(data.name, {body: data.artists, icon: data.image});
-    setTimeout(this.notification.close.bind(this.notification), 8000);
+    if (this.hasNotificationPermission) {
+      this.notification = new Notification(data.name, {body: data.artists, icon: data.image});
+      setTimeout(this.notification.close.bind(this.notification), 8000);
+    }
     chrome.runtime.sendMessage({
       src: "spotifyNotifications.showNotification",
       data: this.notificationData
