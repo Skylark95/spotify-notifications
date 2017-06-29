@@ -23,6 +23,7 @@ The browser tab for [open.spotify.com] must remain open for notifications to app
 #### Keyboard Shortcuts
 * __Ctrl+Shift+S:__ Show browser action with song preview
 * __Ctrl+Shift+Space:__ Toggle Play/Pause for current song from anywhere in the browser
+* __Ctrl+Shift+X:__ Show notification for current song from anywhere in the browser
 * Keyboard shortcuts may be changed on the `chrome://extensions/` page by strolling to the bottom of the page and clicking "Keyboard Shortcuts"
 
 
@@ -32,6 +33,7 @@ The browser tab for [open.spotify.com] must remain open for notifications to app
   * __Feature:__ Add links to browser action to jump to album or artist
   * __Feature:__ Add browser keyboard shortcut to show browser action (default: `Ctrl+Shift+S`)
   * __Feature:__ Add browser keyboard shortcut play/pause track from any tab (default: `Ctrl+Shift+Space`)
+  * __Feature:__ Add browser keyboard shortcut snow notification from any tab (default: `Ctrl+Shift+X`)
   * __Bugfix:__ Don't show multiple notifications if rapidly changing track
   * __Bugfix:__ Fix browser action doesn't work if notifications are not granted
 * __v0.3.1__:
