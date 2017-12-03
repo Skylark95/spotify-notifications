@@ -36,11 +36,6 @@
     "default_popup": "src/browser-action/browser-action.html"
   },
   "commands": {
-    "_execute_browser_action": {
-      "suggested_key": {
-        "default": "Ctrl+Shift+S"
-      }
-    },
     "spotify-notifications-play-pause": {
       "suggested_key": {
         "default": "Ctrl+Shift+Space"
@@ -52,6 +47,18 @@
         "default": "Ctrl+Shift+X"
       },
       "description": "Show Notification"
+    },
+    "spotify-notifications-next": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Period"
+      },
+      "description": "Play next track"
+    },
+    "spotify-notifications-previous": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Comma"
+      },
+      "description": "Play previous track"
     }
   }
 }

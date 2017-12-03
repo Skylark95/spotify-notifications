@@ -23,24 +23,34 @@ var snBackground = {
 
   installPlayPauseCommandListener() {
     chrome.commands.onCommand.addListener(function(command) {
-      console.log(command);
       if ("spotify-notifications-play-pause" === command) {
-        chrome.storage.local.get('spotifyNotifications.tab.id', items => {
-          let tabId = items['spotifyNotifications.tab.id'];
-          chrome.tabs.sendMessage(tabId, {
-            src: "spotifyNotifications.background",
-            action: "spotifyNotifications.performPlayPauseAction"
-          });
+        snBackground.sendMessageToSpotifyTab({
+          src: "spotifyNotifications.background",
+          action: "spotifyNotifications.performPlayPauseAction"
         });
       } else if ("spotify-notifications-show-notification" === command) {
-        chrome.storage.local.get('spotifyNotifications.tab.id', items => {
-          let tabId = items['spotifyNotifications.tab.id'];
-          chrome.tabs.sendMessage(tabId, {
-            src: "spotifyNotifications.background",
-            action: "spotifyNotifications.performShowNotification"
-          });
+        snBackground.sendMessageToSpotifyTab({
+          src: "spotifyNotifications.background",
+          action: "spotifyNotifications.performShowNotification"
+        });
+      } else if ("spotify-notifications-next" === command) {
+        snBackground.sendMessageToSpotifyTab({
+          src: "spotifyNotifications.background",
+          action: "spotifyNotifications.performNextAction"
+        });
+      } else if ("spotify-notifications-previous" === command) {
+        snBackground.sendMessageToSpotifyTab({
+          src: "spotifyNotifications.background",
+          action: "spotifyNotifications.performPreviousAction"
         });
       }
+    });
+  },
+
+  sendMessageToSpotifyTab(message) {
+    chrome.storage.local.get('spotifyNotifications.tab.id', items => {
+      let tabId = items['spotifyNotifications.tab.id'];
+      chrome.tabs.sendMessage(tabId, message);
     });
   }
 
