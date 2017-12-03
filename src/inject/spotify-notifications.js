@@ -26,11 +26,11 @@ var spotifyNotifications = {
     },
 
     performPlayAction() {
-      document.querySelector("button.control-button[title='Play']").click();
+      document.querySelector("button.control-button[class*='spoticon-play']").click();
     },
 
     performPauseAction() {
-      document.querySelector("button.control-button[title='Pause']").click();
+      document.querySelector("button.control-button[class*='spoticon-pause']").click();
     },
 
     performPlayPauseAction() {
@@ -42,11 +42,11 @@ var spotifyNotifications = {
     },
 
     performNextAction() {
-      document.querySelector("button.control-button[title='Next']").click();
+      document.querySelector("button.control-button[class*='spoticon-skip-forward']").click();
     },
 
     performPreviousAction() {
-      document.querySelector("button.control-button[title='Previous']").click();
+      document.querySelector("button.control-button[class*='spoticon-skip-back']").click();
     },
 
     performShowNotification() {
@@ -93,7 +93,7 @@ var spotifyNotifications = {
   },
 
   isPlaying() {
-    return !!document.querySelector("button.control-button[title='Pause']");
+    return !!document.querySelector("button.control-button[class*='spoticon-pause']");
   },
 
   buildAndShowNotification(trackInfo) {
